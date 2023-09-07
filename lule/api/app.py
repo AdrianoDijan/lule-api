@@ -1,8 +1,11 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from ..database.models import db
 from .middleware import CustomExceptionMiddleware
 from .routes import course, document, user
+
+ORIGINS = ["https://lule.adriano.sh", "http://localhost:3000"]
 
 
 def get_app():
@@ -18,3 +21,11 @@ application.include_router(course.router)
 application.include_router(document.router)
 
 application.add_middleware(CustomExceptionMiddleware)
+
+application.add_middleware(
+    CORSMiddleware,
+    allow_origins=ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
