@@ -1,0 +1,69 @@
+default_language_version:
+  python: python3.9
+
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v4.4.0
+  hooks:
+  - id: trailing-whitespace
+    exclude: ^.*\.md$
+  - id: end-of-file-fixer
+  - id: debug-statements
+  - id: no-commit-to-branch
+  - id: mixed-line-ending
+    args: [--fix=lf]
+  - id: detect-private-key
+  - id: detect-aws-credentials
+    args: [--allow-missing-credentials]
+  - id: check-merge-conflict
+
+- repo: https://github.com/jorisroovers/gitlint
+  rev: v0.19.1
+  hooks:
+  - id: gitlint
+
+- repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+  rev: v2.10.0
+  hooks:
+  - id: pretty-format-toml
+    args: [--autofix]
+  - id: pretty-format-yaml
+    args: [--autofix, --indent, '2']
+- repo: https://github.com/adrienverge/yamllint
+  rev: v1.32.0
+  hooks:
+  - id: yamllint
+
+- repo: https://github.com/timothycrosley/isort
+  rev: 5.12.0
+  hooks:
+  - id: isort
+    additional_dependencies: ['.[pyproject]']
+
+- repo: https://github.com/ambv/black
+  rev: 23.7.0
+  hooks:
+  - id: black
+    name: black-code-formatter
+    additional_dependencies: ['.[pyproject]']
+
+- repo: https://github.com/myint/autoflake
+  rev: v2.2.1
+  hooks:
+  - id: autoflake
+    args: [--in-place, --remove-all-unused-imports, --remove-unused-variable]
+
+- repo: https://github.com/PyCQA/flake8
+  rev: 6.1.0
+  hooks:
+  - id: flake8
+    files: ^lule/
+    additional_dependencies: [flake8-print, flake8-docstrings, '.[flake8]']
+
+- repo: https://github.com/PyCQA/pylint
+  rev: v2.16.2
+  hooks:
+  - id: pylint
+    exclude: ^(docs/|alembic/).*$
+      # disabled import-error as may be run out of environment with deps
+    args: ['--disable=import-error,no-name-in-module']
