@@ -7,7 +7,7 @@ from ..schemas.course import Courses
 router = APIRouter()
 
 
-@router.get("/documents", response_model=Courses)
+@router.get("/documents", response_model=Courses, tags=["Documents"])
 async def search_documents(query: str):
     search_results = await search_documents_by_query_string(query=query)
     courses = [
