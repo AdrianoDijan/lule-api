@@ -21,4 +21,5 @@ class User(db.Model):
 
     @courses.setter  # type: ignore
     def add_course(self, course):
-        self._courses.append(course)
+        if course not in self._courses:
+            self._courses.append(course)
