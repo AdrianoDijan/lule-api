@@ -5,7 +5,11 @@ from ..database.models import db
 from .middleware import CustomExceptionMiddleware
 from .routes import course, document, user
 
-ORIGINS = ["https://lule.adriano.sh", "http://localhost:3000"]
+ORIGINS = [
+    "https://lule.adriano.sh",
+    "http://localhost:3000",
+    "https://lule.vercel.app",
+]
 
 
 def get_app():
